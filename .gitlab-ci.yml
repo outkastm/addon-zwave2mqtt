@@ -2,12 +2,12 @@
 include: https://raw.githubusercontent.com/hassio-addons/organization/master/gitlabci/addon.yml
 
 variables:
-  ADDON_GITHUB_REPO: "hassio-addons/addon-zwave2mqtt"
+  ADDON_GITHUB_REPO: "outkastm/addon-zwave2mqtt"
   ADDON_SLUG: "zwave2mqtt"
   ADDON_TARGET: "zwave2mqtt"
 
-  ADDON_AARCH64_BASE: "hassioaddons/base-aarch64:7.1.0"
-  ADDON_AMD64_BASE: "hassioaddons/base-amd64:7.1.0"
-  ADDON_ARMHF_BASE: "hassioaddons/base-armhf:7.1.0"
-  ADDON_ARMV7_BASE: "hassioaddons/base-armv7:7.1.0"
-  ADDON_I386_BASE: "hassioaddons/base-i386:7.1.0"
+  ADDON_AARCH64_BASE: "hassioaddons/base-aarch64:7.1.1"
+  ADDON_AMD64_BASE: "hassioaddons/base-amd64:7.1.1"
+  ADDON_ARMHF_BASE: "hassioaddons/base-armhf:7.1.1"
+  ADDON_ARMV7_BASE: "hassioaddons/base-armv7:7.1.1"
+  ADDON_I386_BASE: "hassioaddons/base-i386:7.1.1"
