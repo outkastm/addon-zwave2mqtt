@@ -1,4 +1,4 @@
-ARG BUILD_FROM=hassioaddons/base:7.1.1
+ARG BUILD_FROM=hassioaddons/base:7.2.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -39,7 +39,7 @@ RUN \
     && mv /tmp/db/config/* /etc/openzwave \
     \
     && curl -J -L -o /tmp/zwave2mqtt.tar.gz \
-        "https://github.com/OpenZWave/Zwave2Mqtt/archive/v3.1.0.tar.gz" \
+        "https://github.com/OpenZWave/Zwave2Mqtt/archive/v3.2.0.tar.gz" \
     && tar zxvf \
         /tmp/zwave2mqtt.tar.gz \
         --strip 1 -C /opt \
@@ -68,7 +68,18 @@ RUN \
         /tmp/.[!.]* \
         /tmp/* \
         /usr/lib/node_modules \
-        /usr/local/share/.cache
+        /usr/local/share/.cache \
+    \
+    && curl -J -L -o /tmp/openzwave-lib.tar.gz \
+        "https://github.com/outkastm/Openzwave-armv7/releases/download/1.0/OpenZwave.1.6.1123.tar.gz" \
+    && mkdir /tmp/openzwavelib \
+    && tar zxvf \
+	    /tmp/openzwave-lib.tar.gz \
+        --strip 1 -C /tmp/openzwavelib \
+    && cp -af /tmp/openzwavelib/usr/bin/* /usr/bin \
+    && cp -af /tmp/openzwavelib/usr/lib/pkgconfig/libopenzwave.pc /usr/lib/pkgconfig \
+    && cp -af /tmp/openzwavelib/usr/lib/libopenzwave.so /usr/lib \
+	&& cp -af /tmp/openzwavelib/usr/lib/libopenzwave.so.1.6 /usr/lib
 
 # Copy root filesystem
 COPY rootfs /
@@ -81,18 +92,20 @@ ARG BUILD_VERSION
 
 # Labels
 LABEL \
-    io.hass.name="Z-Wave to MQTT" \
-    io.hass.description="Fully configurable Z-Wave to MQTT gateway and control panel." \
+    io.hass.name="Z-Wave to MQTT dev" \
+    io.hass.description="Fully configurable Z-Wave to MQTT gateway and control panel" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="Franck Nijhof <frenck@addons.community>" \
-    org.label-schema.description="Fully configurable Z-Wave to MQTT gateway and control panel." \
-    org.label-schema.build-date=${BUILD_DATE} \
-    org.label-schema.name="Z-Wave to MQTT" \
-    org.label-schema.schema-version="1.0" \
-    org.label-schema.url="https://community.home-assistant.io/t/home-assistant-community-add-on-z-wave-to-mqtt/115899?u=frenck" \
-    org.label-schema.usage="https://github.com/hassio-addons/addon-zwave2mqtt/tree/master/README.md" \
-    org.label-schema.vcs-ref=${BUILD_REF} \
-    org.label-schema.vcs-url="https://github.com/hassio-addons/addon-zwave2mqtt" \
-    org.label-schema.vendor="Home Assistant Community Add-ons"
+    maintainer="Irinel Porcariu <irinel.porcariu@gmail.com>" \
+    org.opencontainers.image.title="Z-Wave to MQTT" \
+    org.opencontainers.image.description="Fully configurable Z-Wave to MQTT gateway and control panel" \
+    org.opencontainers.image.vendor="Home Assistant Community Add-ons" \
+    org.opencontainers.image.authors="Irinel Porcariu <irinel.porcariu@gmail.com>" \
+    org.opencontainers.image.licenses="MIT" \
+    org.opencontainers.image.url="" \
+    org.opencontainers.image.source="https://github.com/outkastm/my-hassio-addons" \
+    org.opencontainers.image.documentation="https://github.com/outkastm/my-hassio-addons/blob/master/zwave2mqtt-dev/README.md" \
+    org.opencontainers.image.created=${BUILD_DATE} \
+    org.opencontainers.image.revision=${BUILD_REF} \
+    org.opencontainers.image.version=${BUILD_VERSION}
