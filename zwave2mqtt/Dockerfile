@@ -13,7 +13,6 @@ RUN \
         git=2.24.3-r0 \
         linux-headers=4.19.36-r0 \
         npm=12.15.0-r1 \
-        openzwave-dev=1.6.974-r0 \
         python2-dev~=2.7 \
         yarn=1.19.2-r0 \
     \
@@ -25,18 +24,20 @@ RUN \
         nginx=1.16.1-r6 \
         nodejs=12.15.0-r1 \
         openssl=1.1.1g-r0 \
-        openzwave=1.6.974-r0 \
-    \
-    && curl -J -L -o /tmp/openzwave-db.tar.gz \
-        "http://old.openzwave.com/downloads/openzwave-1.6.1123.tar.gz" \
-    && mkdir /tmp/db \
-    && tar zxvf \
-        /tmp/openzwave-db.tar.gz \
-        --strip 1 -C /tmp/db \
-    \
+	\
+	&& OPENZWAVE_VER=1.6.1123 \
+	&& mkdir /tmp/openzwavelib \
+	&& curl -J -L -o /tmp/openzwavelib.tar.gz \
+        "http://old.openzwave.com/downloads/openzwave-${OPENZWAVE_VER}.tar.gz" \
+	&& tar zxvf \
+        /tmp/openzwavelib.tar.gz \
+        --strip 1 -C /tmp/openzwavelib \
+	&& cd /tmp/openzwavelib \
+	&& make #-j6 \
+	&& make install PREFIX=/usr \	
     && rm -f -r /etc/openzwave \
     && mkdir -p /etc/openzwave \
-    && mv /tmp/db/config/* /etc/openzwave \
+    && mv /tmp/openzwavelib/config/* /etc/openzwave \
     \
     && curl -J -L -o /tmp/zwave2mqtt.tar.gz \
         "https://github.com/OpenZWave/Zwave2Mqtt/archive/v3.2.0.tar.gz" \
@@ -68,21 +69,10 @@ RUN \
         /tmp/.[!.]* \
         /tmp/* \
         /usr/lib/node_modules \
-        /usr/local/share/.cache \
-    \
-    && curl -J -L -o /tmp/openzwave-lib.tar.gz \
-        "https://github.com/outkastm/Openzwave-armv7/releases/download/1.0/OpenZwave.1.6.1123.tar.gz" \
-    && mkdir /tmp/openzwavelib \
-    && tar zxvf \
-	    /tmp/openzwave-lib.tar.gz \
-        --strip 1 -C /tmp/openzwavelib \
-    && cp -af /tmp/openzwavelib/usr/bin/* /usr/bin \
-    && cp -af /tmp/openzwavelib/usr/lib/pkgconfig/libopenzwave.pc /usr/lib/pkgconfig \
-    && cp -af /tmp/openzwavelib/usr/lib/libopenzwave.so /usr/lib \
-	&& cp -af /tmp/openzwavelib/usr/lib/libopenzwave.so.1.6 /usr/lib
+        /usr/local/share/.cache
 
 # Copy root filesystem
-COPY rootfs /
+COPY ./rootfs /
 
 # Build arguments
 ARG BUILD_ARCH
