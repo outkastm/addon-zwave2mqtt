@@ -24,6 +24,7 @@ RUN \
         nginx=1.16.1-r6 \
         nodejs=12.15.0-r1 \
         openssl=1.1.1g-r0 \
+		fmt=6.2.1-r0 \
 	\
 	&& OPENZWAVE_VER=1.6.1123 \
 	&& mkdir /tmp/openzwavelib \
