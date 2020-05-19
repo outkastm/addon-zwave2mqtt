@@ -15,6 +15,7 @@ RUN \
         npm=12.15.0-r1 \
         python2-dev~=2.7 \
         yarn=1.19.2-r0 \
+        coreutils \
     \
     && apk add --no-cache \
         eudev=3.2.9-r1 \
