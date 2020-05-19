@@ -15,16 +15,18 @@ RUN \
         npm=12.15.0-r1 \
         python2-dev~=2.7 \
         yarn=1.19.2-r0 \
+		fmt=6.2.1-r0 \
+		coreutils=8.24-r0 \
+		eudev-dev=3.2.9-r3 \
     \
     && apk add --no-cache \
-        eudev=3.2.9-r1 \
+        eudev=3.2.9-r3 \
         libusb=1.0.23-r0 \
         lua-resty-http=0.15-r0 \
         nginx-mod-http-lua=1.16.1-r6 \
         nginx=1.16.1-r6 \
         nodejs=12.15.0-r1 \
         openssl=1.1.1g-r0 \
-		fmt=6.2.1-r0 \
 	\
 	&& OPENZWAVE_VER=1.6.1123 \
 	&& mkdir /tmp/openzwavelib \
@@ -73,7 +75,7 @@ RUN \
         /usr/local/share/.cache
 
 # Copy root filesystem
-COPY ./rootfs /
+COPY /zwave2mqtt/rootfs /
 
 # Build arguments
 ARG BUILD_ARCH
