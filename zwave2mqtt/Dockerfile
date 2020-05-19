@@ -17,7 +17,7 @@ RUN \
         yarn=1.19.2-r0 \
     \
     && apk add --no-cache \
-        eudev=3.2.9-r3 \
+        eudev=3.2.9-r1 \
         libusb=1.0.23-r0 \
         lua-resty-http=0.15-r0 \
         nginx-mod-http-lua=1.16.1-r6 \
@@ -72,7 +72,7 @@ RUN \
         /usr/local/share/.cache
 
 # Copy root filesystem
-COPY /zwave2mqtt/rootfs /
+COPY ./rootfs /
 
 # Build arguments
 ARG BUILD_ARCH
