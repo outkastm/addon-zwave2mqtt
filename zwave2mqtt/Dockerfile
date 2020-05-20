@@ -43,7 +43,7 @@ RUN \
     && mkdir -p /etc/openzwave \
     && mv /tmp/openzwavelib/config/* /etc/openzwave \
     \
-	&& echo "download zwave2mqtt"
+	&& echo "download zwave2mqtt" \
     && curl -J -L -o /tmp/zwave2mqtt.tar.gz \
         "https://github.com/OpenZWave/Zwave2Mqtt/archive/v3.2.0.tar.gz" \
     && tar zxvf \
