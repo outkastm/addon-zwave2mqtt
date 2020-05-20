@@ -34,11 +34,11 @@ RUN \
         /tmp/openzwavelib.tar.gz \
         --strip 1 -C /tmp/openzwavelib \
 	&& cd /tmp/openzwavelib \
-	&& echo "start build openzavelib"
+	&& echo "start build openzavelib" \
 	&& make #-j6 \
-	&& echo "start install openzavelib"
+	&& echo "start install openzavelib" \
 	&& make install PREFIX=/usr \	
-	&& echo "copy database"
+	&& echo "copy database" \
     && rm -f -r /etc/openzwave \
     && mkdir -p /etc/openzwave \
     && mv /tmp/openzwavelib/config/* /etc/openzwave \
