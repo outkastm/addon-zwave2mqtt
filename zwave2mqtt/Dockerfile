@@ -33,19 +33,19 @@ RUN \
 	&& tar zxvf \
         /tmp/openzwavelib.tar.gz \
         --strip 1 -C /tmp/openzwavelib \
-	&& cd /tmp/openzwavelib \
-	&& echo "start build openzavelib" \
-	&& make #-j6 \
-	&& echo "start install openzavelib" \
-	&& make install PREFIX=/usr \	
-	&& echo "copy database" \
+    && cd /tmp/openzwavelib \
+    && echo "start build openzavelib" \
+    && make \
+    && echo "start install openzavelib" \
+    && make install PREFIX=/usr \
+    && echo "copy database" \
     && rm -f -r /etc/openzwave \
     && mkdir -p /etc/openzwave \
     && mv /tmp/openzwavelib/config/* /etc/openzwave \
     \
-	&& echo "download zwave2mqtt" \
+    && echo "download zwave2mqtt" \
     && curl -J -L -o /tmp/zwave2mqtt.tar.gz \
-        "https://github.com/OpenZWave/Zwave2Mqtt/archive/v3.2.0.tar.gz" \
+        "https://github.com/OpenZWave/Zwave2Mqtt/archive/v3.2.1.tar.gz" \
     && tar zxvf \
         /tmp/zwave2mqtt.tar.gz \
         --strip 1 -C /opt \
